@@ -1,4 +1,4 @@
-package com.sergio.spring5webfluxrest;
+package com.sergio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
