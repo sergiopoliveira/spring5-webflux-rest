@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import org.reactivestreams.Publisher;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import com.sergio.domain.Category;
 import com.sergio.domain.Vendor;
 import com.sergio.repository.VendorRepository;
 
@@ -18,9 +17,9 @@ import reactor.core.publisher.Mono;
 
 public class VendorControllerTest {
 
-	WebTestClient webTestClient;
-	VendorRepository vendorRepository;
-	VendorController vendorController;
+	private WebTestClient webTestClient;
+	private VendorRepository vendorRepository;
+	private VendorController vendorController;
 	
 	@Before
 	public void setUp() throws Exception {
