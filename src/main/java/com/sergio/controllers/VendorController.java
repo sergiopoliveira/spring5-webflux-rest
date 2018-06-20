@@ -27,24 +27,24 @@ public class VendorController {
 	
 	@GetMapping("/api/v1/vendors")
 	// Flux returns 0 or many results
-	Flux<Vendor> list(){
+	public Flux<Vendor> list(){
 		return vendorRepository.findAll();
 	}
 	
 	@GetMapping("/api/v1/vendors/{id}")
 	// Mono returns 0 or 1 result
-	Mono<Vendor> getById(@PathVariable String id) {
+	public Mono<Vendor> getById(@PathVariable String id) {
 		return vendorRepository.findById(id);
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("/api/v1/vendors")
-	Mono<Void> create(@RequestBody Publisher<Vendor> vendorStream) {
+	public Mono<Void> create(@RequestBody Publisher<Vendor> vendorStream) {
 		return vendorRepository.saveAll(vendorStream).then();
 	}
 
 	@PutMapping("/api/v1/vendors/{id}")
-	Mono<Vendor> update(String id, @RequestBody Vendor vendor) {
+	public Mono<Vendor> update(String id, @RequestBody Vendor vendor) {
 		vendor.setId(id);
 		return vendorRepository.save(vendor);
 	}
