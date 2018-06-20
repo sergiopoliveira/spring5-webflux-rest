@@ -1,6 +1,7 @@
 package com.sergio.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +18,9 @@ import reactor.core.publisher.Mono;
 
 public class CategoryControllerTest {
 
-	WebTestClient webTestClient;
-	CategoryRepository categoryRepository;
-	CategoryController categoryController;
+	private WebTestClient webTestClient;
+	private CategoryRepository categoryRepository;
+	private CategoryController categoryController;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -79,6 +80,26 @@ public class CategoryControllerTest {
 		.exchange()
 		.expectStatus()
 		.isOk();
+	}
+	
+	@Test
+	public void patchCategory() {
+		BDDMockito.given(categoryRepository.findById(anyString()))
+		.willReturn(Mono.just(Category.builder().build()));
+		
+		BDDMockito.given(categoryRepository.save(any(Category.class)))
+		.willReturn(Mono.just(Category.builder().build()));
+		
+		Mono<Category> catToUpdateMono = Mono.just(Category.builder().description("Some Cat").build()); 
+		
+		webTestClient.patch()
+		.uri("/api/v1/categories/asda")
+		.body(catToUpdateMono, Category.class)
+		.exchange()
+		.expectStatus()
+		.isOk();
+		
+		BDDMockito.verify(categoryRepository).save(any());
 	}
 	
 }
